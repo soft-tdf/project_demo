@@ -1,11 +1,24 @@
 services:
-  app:
+  demo_productos:
     build:
-      context: .
+      context: ./demo_productos
       dockerfile: Dockerfile
-    container_name: odoo_supabase_demo
+    container_name: demo_productos_app
     ports:
       - "3005:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL:-}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}
+    restart: unless-stopped
+
+  demo_turnos:
+    build:
+      context: ./demo_turnos
+      dockerfile: Dockerfile
+    container_name: demo_turnos_app
+    ports:
+      - "3006:3000"
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL:-}
